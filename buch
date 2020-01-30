@@ -1,0 +1,59 @@
+package bibliothekAnwendung.BiblioAnwendung.entity;
+
+
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Entity
+@Table(name = "buch")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+
+
+public class Buch {
+
+    long id;
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id", unique = true, nullable = false)
+    public long getId() {
+        return id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+
+    @Column
+    private String titel;
+
+    @Column
+    private String isbn;
+
+    @Column
+    private String id_BuchGenre;
+
+    @Column
+    private int bestand;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buch", targetEntity = Ausleihe.class)
+////    @JoinColumn(referencedColumnName = "buch", table = "ausleihe")
+////    private Ausleihe ausleihen;
+//   private Set<Ausleihe> ausleiheSet = new HashSet<> ();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buch")
+    private Set<Ausleihe> ausleihe = new HashSet<> ();
+
+}
